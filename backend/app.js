@@ -5,12 +5,12 @@ const app = express();
 app.use(cors());
 
 app.get("/", (req, res) => {
-  res.send("Backend funcionando 🚀");
+  res.send("Backend funcionando ");
 });
 
 app.get("/api/saludo", (req, res) => {
   res.json({
-    mensaje: "Hola desde el backend 👋",
+    mensaje: "Hola desde mi backend",
     fecha: new Date()
   });
 });
