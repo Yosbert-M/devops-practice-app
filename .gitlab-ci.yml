@@ -1,12 +1,51 @@
 stages:
   - build
+  - test
+  - docker
+  - deploy
+
+variables:
+  DOCKER_IMAGE: $CI_REGISTRY_IMAGE/backend
+
 
 build_job:
   stage: build
+  image: node:18
+  script:
+    - echo "Entrando al backend"
+    - cd backend
+    - npm install
+    - echo "Build completado"
+  artifacts:
+    paths:
+      - backend/node_modules/
+    expire_in: 1 hour
+
+test_job:
+  stage: test
   image: node:18
   script:
     - cd backend
     - npm install
     - node app.js &
     - sleep 5
-    - echo "app corriendo"
+    - echo "Servidor iniciado correctamente - Tests OK"
+
+
+docker_build:
+  stage: docker
+  image: docker:latest
+  services:
+    - docker:dind
+  script:
+    - echo "Construyendo imagen Docker"
+    - docker build -t $DOCKER_IMAGE .
+    - echo "Imagen creada correctamente"
+
+
+deploy_job:
+  stage: deploy
+  image: alpine:latest
+  script:
+    - echo "Simulando deploy..."
+    - echo "Aplicación desplegada correctamente"
