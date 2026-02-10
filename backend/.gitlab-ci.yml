@@ -1,0 +1,12 @@
+stages:
+  - build
+
+build_job:
+  stage: build
+  image: node:18
+  script:
+    - cd backend
+    - npm install
+    - node app.js &
+    - sleep 5
+    - echo "App corriendo"
