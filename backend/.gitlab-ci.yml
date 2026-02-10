@@ -9,4 +9,4 @@ build_job:
     - npm install
     - node app.js &
     - sleep 5
-    - echo "App corriendo"
+    - echo "app corriendo"
